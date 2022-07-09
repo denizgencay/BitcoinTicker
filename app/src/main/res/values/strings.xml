@@ -5,4 +5,7 @@
     <string name="login">login</string>
     <string name="e_mail">E-Mail</string>
     <string name="password">Password</string>
+    <string name="if_you_have_an_account_login">If you have an account login</string>
+    <string name="if_you_don_t_have_an_account_sign_up">If you don\'t have an account Sign Up</string>
+    <string name="sign_up">sign up</string>
 </resources>
