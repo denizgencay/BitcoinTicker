@@ -8,10 +8,18 @@ class FirebaseRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ): FirebaseRepository {
     override fun signUp(email: String, password: String) {
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
+            println("suc")
+        }.addOnFailureListener{
+            println(it.localizedMessage)
+        }
     }
 
     override fun login(email: String, password: String) {
-        firebaseAuth.signInWithEmailAndPassword(email,password)
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
+
+        }.addOnFailureListener{
+
+        }
     }
 }
