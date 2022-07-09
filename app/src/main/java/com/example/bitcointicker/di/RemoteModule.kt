@@ -1,8 +1,6 @@
 package com.example.bitcointicker.di
 
-import com.example.bitcointicker.data.repository.FirebaseRepositoryImpl
 import com.example.bitcointicker.data.repository.RemoteDataRepositoryImpl
-import com.example.bitcointicker.domain.repository.FirebaseRepository
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
 import com.example.bitcointicker.util.Constants.BASE_URL
 import dagger.Module
@@ -36,8 +34,6 @@ object RemoteModule {
             .build()
     }
 
-
-
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
@@ -48,42 +44,11 @@ object RemoteModule {
             .build()
     }
 
+
     @Provides
     @Singleton
     fun provideRemoteDataRepository(): RemoteDataRepository {
         return RemoteDataRepositoryImpl()
     }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseRepository(): FirebaseRepository {
-        return FirebaseRepositoryImpl()
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
