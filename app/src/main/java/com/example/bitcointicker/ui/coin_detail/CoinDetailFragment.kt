@@ -28,6 +28,9 @@ class CoinDetailFragment : Fragment() {
             binding.description.text = it.name
         }
         coinDetailViewModel.coinDetail.observe(viewLifecycleOwner,dataObserver)
+        binding.favoriteButton.setOnClickListener{
+            coinDetailViewModel.addFavorite("starbase")
+        }
         return binding.root
     }
 }
