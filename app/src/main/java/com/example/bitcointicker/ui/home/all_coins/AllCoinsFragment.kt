@@ -5,17 +5,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitcointicker.R
+import com.example.bitcointicker.databinding.FragmentAllCoinsFragementBinding
+import com.example.bitcointicker.domain.model.Coin
+import com.example.bitcointicker.ui.adapter.CoinListRecyclerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AllCoinsFragment : Fragment() {
+
+    private lateinit var binding: FragmentAllCoinsFragementBinding
+    private val allCoinsViewModel: AllCoinsViewModel by viewModels()
+    private val recyclerAdapter = CoinListRecyclerAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_coins_fragement, container, false)
+    ): View {
+        binding = FragmentAllCoinsFragementBinding.inflate(inflater,container,false)
+        configureRecyclerView()
+        allCoinsViewModel.getAllCoins()
+        val coinObserver = Observer<List<Coin>>{
+            println(it)
+            recyclerAdapter.setCoinListData(it)
+            recyclerAdapter.notifyDataSetChanged()
+        }
+        allCoinsViewModel.coins.observe(viewLifecycleOwner,coinObserver)
+        return binding.root
+    }
+
+    private fun configureRecyclerView(){
+        binding.allCoinsRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.allCoinsRecyclerView.adapter = recyclerAdapter
     }
 
 }
