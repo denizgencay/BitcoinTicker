@@ -6,4 +6,5 @@ object Constants {
     const val ALL_COINS_TABLE = "all_coins_table"
     const val USER = "user"
     const val FAVORITES = "favorites"
+    const val UNEXPECTED_ERROR = "Unexpected Error"
 }

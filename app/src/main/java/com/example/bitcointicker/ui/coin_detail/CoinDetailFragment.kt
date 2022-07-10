@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.bitcointicker.databinding.FragmentCoinDetailBinding
 import com.example.bitcointicker.domain.model.CoinDetail
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,6 +32,7 @@ class CoinDetailFragment : Fragment() {
         binding.favoriteButton.setOnClickListener{
             coinDetailViewModel.addFavorite("starbase")
         }
+        Picasso.get().load("https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579").into(binding.coinImage);
         return binding.root
     }
 }
