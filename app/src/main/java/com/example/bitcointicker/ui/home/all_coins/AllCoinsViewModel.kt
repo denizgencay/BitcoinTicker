@@ -27,7 +27,7 @@ class AllCoinsViewModel @Inject constructor(
         _getAllCoinsJob?.cancel()
         _getAllCoinsJob = viewModelScope.launch{
             remoteDataRepository.getAllCoins().collect{
-                addAllCoins(it)
+                addAllCoins(it.data!!)
             }
         }
     }

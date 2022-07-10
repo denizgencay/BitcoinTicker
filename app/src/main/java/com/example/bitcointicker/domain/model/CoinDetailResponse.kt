@@ -3,7 +3,6 @@ package com.example.bitcointicker.domain.model
 import com.google.gson.annotations.SerializedName
 
 data class CoinDetail (
-
     var id: String? = "",
     var symbol: String? = "",
     var name: String? = "",
