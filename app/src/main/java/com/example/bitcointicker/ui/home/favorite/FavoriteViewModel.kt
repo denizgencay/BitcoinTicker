@@ -1,4 +1,4 @@
-package com.example.bitcointicker.ui.favorite
+package com.example.bitcointicker.ui.home.favorite
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
