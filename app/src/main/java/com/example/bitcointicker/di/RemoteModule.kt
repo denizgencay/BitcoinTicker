@@ -1,8 +1,11 @@
 package com.example.bitcointicker.di
 
+import com.example.bitcointicker.data.remote.CoinGeckoApi
 import com.example.bitcointicker.data.repository.RemoteDataRepositoryImpl
+import com.example.bitcointicker.domain.model.Coin
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
 import com.example.bitcointicker.util.Constants.BASE_URL
+import com.example.bitcointicker.util.dispatcher_provider.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,11 +47,20 @@ object RemoteModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    fun provideCoinGeckoApi(retrofit: Retrofit): CoinGeckoApi{
+        return retrofit.create(CoinGeckoApi::class.java)
+    }
+
 
     @Provides
     @Singleton
-    fun provideRemoteDataRepository(): RemoteDataRepository {
-        return RemoteDataRepositoryImpl()
+    fun provideRemoteDataRepository(
+        coinGeckoApi: CoinGeckoApi,
+        dispatcherProvider: DispatcherProvider
+    ): RemoteDataRepository {
+        return RemoteDataRepositoryImpl(coinGeckoApi,dispatcherProvider)
     }
 
 }
