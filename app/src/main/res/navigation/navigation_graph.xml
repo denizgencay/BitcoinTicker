@@ -34,12 +34,31 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_coinDetailFragment"
-            app:destination="@id/coinDetailFragment"
-            app:popUpTo="@id/homeFragment" />
+            app:destination="@id/coinDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
         android:name="com.example.bitcointicker.ui.coin_detail.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail" />
+    <fragment
+        android:id="@+id/allCoinsFragment"
+        android:name="com.example.bitcointicker.ui.home.all_coins.AllCoinsFragment"
+        android:label="fragment_all_coins_fragement"
+        tools:layout="@layout/fragment_all_coins_fragement" >
+        <action
+            android:id="@+id/action_allCoinsFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment"
+            app:popUpTo="@id/allCoinsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.bitcointicker.ui.home.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment"
+            app:popUpTo="@id/favoriteFragment" />
+    </fragment>
 </navigation>

@@ -8,4 +8,5 @@
     <string name="if_you_have_an_account_login">If you have an account login</string>
     <string name="if_you_don_t_have_an_account_sign_up">If you don\'t have an account Sign Up</string>
     <string name="sign_up">sign up</string>
+    <string name="save_to_favorites">Save To Favorites</string>
 </resources>

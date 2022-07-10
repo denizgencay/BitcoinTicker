@@ -2,6 +2,7 @@ package com.example.bitcointicker.data.repository
 
 import com.example.bitcointicker.data.remote.CoinGeckoApi
 import com.example.bitcointicker.domain.model.Coin
+import com.example.bitcointicker.domain.model.CoinDetail
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
 import com.example.bitcointicker.util.dispatcher_provider.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
@@ -25,5 +26,16 @@ class RemoteDataRepositoryImpl @Inject constructor(
             }
         }.flowOn(dispatcherProvider.io)
 
-
+    override suspend fun getCoinDetail(id: String): Flow<CoinDetail> =
+        callbackFlow {
+            try {
+                val response = coinGeckoApi.getSelectedCoin(id)
+                trySend(response)
+                println(response)
+                close()
+            }catch (e: Exception){
+                println(e.localizedMessage)
+                close()
+            }
+        }.flowOn(dispatcherProvider.io)
 }
