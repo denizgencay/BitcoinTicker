@@ -40,7 +40,8 @@ class SignUpFragment : Fragment() {
 
     private fun handleButtonActions(){
         binding.signUpButton.setOnClickListener{
-            signUp()
+           // signUp()
+            view?.findNavController()?.navigate(R.id.action_signUpFragment_to_homeFragment)
         }
         binding.loginDirection.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_signUpFragment_to_loginFragment)

@@ -1,24 +1,21 @@
-package com.example.bitcointicker.ui.favorite
+package com.example.bitcointicker.ui.home.all_coins
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.bitcointicker.databinding.FragmentFavoriteBinding
+import com.example.bitcointicker.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
-
-    private lateinit var binding: FragmentFavoriteBinding
-
+class AllCoinsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFavoriteBinding.inflate(inflater,container,false)
-        return binding.root
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_all_coins_fragement, container, false)
     }
 
 }
