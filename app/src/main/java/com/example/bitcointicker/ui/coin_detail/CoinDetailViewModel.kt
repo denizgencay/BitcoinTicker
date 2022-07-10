@@ -8,7 +8,6 @@ import com.example.bitcointicker.domain.model.CoinDetail
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
