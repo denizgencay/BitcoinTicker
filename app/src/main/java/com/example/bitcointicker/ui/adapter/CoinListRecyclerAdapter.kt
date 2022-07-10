@@ -11,10 +11,11 @@ import com.example.bitcointicker.domain.model.Coin
 class CoinListRecyclerAdapter: RecyclerView.Adapter<CoinListRecyclerAdapter.CoinViewHolder>() {
 
     private var coins: List<Coin?> = listOf()
+    private var listener: OnCardListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.coin_card, parent,false)
-        return CoinViewHolder(view)
+        return CoinViewHolder(view, listener!!)
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
@@ -25,12 +26,25 @@ class CoinListRecyclerAdapter: RecyclerView.Adapter<CoinListRecyclerAdapter.Coin
         return coins.size
     }
 
-    class CoinViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class CoinViewHolder(view: View, listener: OnCardListener): RecyclerView.ViewHolder(view) {
          val nameText: TextView = itemView.findViewById(R.id.coin_name)
          //val symbolText: TextView = itemView.findViewById(R.id.coin_symbol)
+        init {
+            itemView.setOnClickListener {
+                listener.onCardClicked(position = adapterPosition)
+            }
+        }
     }
 
     fun setCoinListData(coinList: List<Coin>){
         this.coins = coinList
+    }
+
+    interface OnCardListener{
+        fun onCardClicked(position: Int)
+    }
+
+    fun setOnCardClickedListener(listener: OnCardListener){
+        this.listener = listener
     }
 }
