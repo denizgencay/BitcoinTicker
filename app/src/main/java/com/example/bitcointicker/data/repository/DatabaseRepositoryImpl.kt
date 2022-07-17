@@ -15,10 +15,11 @@ class DatabaseRepositoryImpl @Inject constructor(
     coinDatabase: CoinDatabase
 ): DatabaseRepository {
     private val coinDao = coinDatabase.coinDao()
-    override suspend fun addAllCoins(coinList: List<Coin>) {
-        coinDao.addAllCoins(coinList)
-    }
+
+    override suspend fun addAllCoins(coinList: List<Coin>) = coinDao.addAllCoins(coinList)
 
     override fun getAllCoins(): LiveData<List<Coin>> = coinDao.getAllCoins()
+
+    override fun searchCoin(query: String): LiveData<List<Coin>> = coinDao.searchCoins(query)
 
 }

@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface DatabaseRepository {
     suspend fun addAllCoins(coinList: List<Coin>)
     fun getAllCoins(): LiveData<List<Coin>>
+    fun searchCoin(query: String): LiveData<List<Coin>>
 }

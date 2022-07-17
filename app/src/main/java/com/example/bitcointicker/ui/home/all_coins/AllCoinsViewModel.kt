@@ -24,6 +24,10 @@ class AllCoinsViewModel @Inject constructor(
 
     val getAllCoinsFromDb: LiveData<List<Coin>> = databaseRepository.getAllCoins()
 
+    fun searchDatabase(query: String): LiveData<List<Coin>>{
+        return databaseRepository.searchCoin(query)
+    }
+
     fun getAllCoins(){
         _getAllCoinsJob?.cancel()
         _getAllCoinsJob = viewModelScope.launch{

@@ -12,6 +12,9 @@ interface CoinDao {
     @Query("SELECT * FROM ALL_COINS_TABLE")
     fun getAllCoins(): LiveData<List<Coin>>
 
+    @Query("SELECT * FROM ALL_COINS_TABLE WHERE name LIKE :searchQuery")
+    fun searchCoins(searchQuery: String): LiveData<List<Coin>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAllCoins(coins: List<Coin>)
 }
