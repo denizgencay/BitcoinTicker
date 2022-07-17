@@ -58,4 +58,5 @@ class FirebaseRepositoryImpl @Inject constructor(
                 close()
             }
         }
+
 }

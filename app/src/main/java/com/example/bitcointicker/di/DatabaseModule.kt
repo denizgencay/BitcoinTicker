@@ -6,6 +6,7 @@ import com.example.bitcointicker.data.local.CoinDatabase
 import com.example.bitcointicker.data.repository.DatabaseRepositoryImpl
 import com.example.bitcointicker.domain.repository.DatabaseRepository
 import com.example.bitcointicker.util.Constants.COIN_DATABASE
+import com.example.bitcointicker.util.dispatcher_provider.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

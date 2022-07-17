@@ -34,7 +34,7 @@ class AllCoinsFragment : Fragment() {
             recyclerAdapter.setCoinListData(it)
             recyclerAdapter.notifyDataSetChanged()
         }
-        allCoinsViewModel.coins.observe(viewLifecycleOwner,coinObserver)
+        allCoinsViewModel.getAllCoinsFromDb.observe(viewLifecycleOwner,coinObserver)
         return binding.root
     }
 
