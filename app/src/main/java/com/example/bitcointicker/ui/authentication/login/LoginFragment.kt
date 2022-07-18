@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             login()
         }
         binding.signUpDirection.setOnClickListener {
-            view?.findNavController()?.popBackStack()
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 }

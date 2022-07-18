@@ -26,14 +26,14 @@ class FirebaseRepositoryImpl @Inject constructor(
        callbackFlow {
            try {
                firebaseAuth.createUserWithEmailAndPassword(email,password).await()
-               val map: HashMap<String, Any> = hashMapOf()
-               map["coinId"] = ""
+               val map: HashMap<String, List<String>> = hashMapOf()
+               map["favorites"] = listOf()
                firebaseFirestore.collection("user").document(firebaseAuth.currentUser!!.uid).set(map).await()
                trySend(Resource.success(true))
                close()
            }catch (e: Exception){
-               toastMessageHelper.showToastMessage(e.message)
-               trySend(Resource.error(false,e.message!!))
+               toastMessageHelper.showToastMessage(e.localizedMessage)
+               trySend(Resource.error(false,e.localizedMessage!!))
                close()
            }
        }.flowOn(dispatcherProvider.mainImmediate)
@@ -45,8 +45,8 @@ class FirebaseRepositoryImpl @Inject constructor(
                 firebaseAuth.signInWithEmailAndPassword(email,password).await()
                 trySend(Resource.success(true))
             }catch (e: Exception){
-                toastMessageHelper.showToastMessage(e.message!!)
-                trySend(Resource.error(false,e.message!!))
+                toastMessageHelper.showToastMessage(e.localizedMessage!!)
+                trySend(Resource.error(false,e.localizedMessage!!))
                 close()
             }
         }.flowOn(dispatcherProvider.mainImmediate)
@@ -54,16 +54,12 @@ class FirebaseRepositoryImpl @Inject constructor(
 
 
     override fun addFavorite(coinId: String, currentPrice: Double) {
-        firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").update(FAVORITES, FieldValue.arrayUnion(coinId)).addOnSuccessListener {
-            println(it)
-        }.addOnFailureListener{
-            toastMessageHelper.showToastMessage(it.localizedMessage)
-        }
+        firebaseFirestore.collection(USER).document(firebaseAuth.currentUser!!.uid).update(FAVORITES, FieldValue.arrayUnion(coinId))
     }
 
     override suspend fun getFavoriteCoinIds(): Flow<Resource<List<String>>> =
         callbackFlow {
-            val response = firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").get().await()
+            val response = firebaseFirestore.collection(USER).document(firebaseAuth.currentUser!!.uid).get().await()
             if (response.exists()){
                 trySend(Resource.success(response.data!!["favorites"] as List<String>))
             }else{
