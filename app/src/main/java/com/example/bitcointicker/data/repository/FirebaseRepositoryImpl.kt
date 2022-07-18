@@ -27,14 +27,17 @@ class FirebaseRepositoryImpl @Inject constructor(
            try {
                val signUp = firebaseAuth.createUserWithEmailAndPassword(email,password)
                if (signUp.isSuccessful){
+                   val map: HashMap<String, List<String>> = hashMapOf()
+                   map["favorites"] = listOf()
+                   firebaseFirestore.collection("user").document(firebaseAuth.currentUser!!.uid).set(map)
                    trySend(Resource.success(true))
                    close()
                }else{
+                   toastMessageHelper.showToastMessage(signUp.exception!!.localizedMessage!!)
                    trySend(Resource.error(false,signUp.exception!!.localizedMessage!!))
                    close()
                }
            }catch (e: Exception){
-               toastMessageHelper.showToastMessage(e.localizedMessage)
                close()
            }
        }.flowOn(dispatcherProvider.mainImmediate)
@@ -47,11 +50,11 @@ class FirebaseRepositoryImpl @Inject constructor(
                 if (login.isSuccessful){
                     trySend(Resource.success(true))
                 }else{
+                    toastMessageHelper.showToastMessage(login.exception!!.localizedMessage!!)
                     trySend(Resource.error(false,login.exception!!.localizedMessage!!))
                 }
                 close()
             }catch (e: Exception){
-                toastMessageHelper.showToastMessage(e.localizedMessage)
                 close()
             }
         }.flowOn(dispatcherProvider.mainImmediate)
@@ -73,7 +76,7 @@ class FirebaseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavoriteCoinIds(): Flow<Resource<List<String>>> =
-        callbackFlow <Resource<List<String>>> {
+        callbackFlow {
             val response = firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").get().await()
             if (response.exists()){
                 trySend(Resource.success(response.data!!["favorites"] as List<String>))

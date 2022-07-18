@@ -35,13 +35,16 @@ class SignUpFragment : Fragment() {
             Toast.makeText(activity, "Please fill all the blanks", Toast.LENGTH_SHORT).show()
         }else{
             signUpViewModel.signUpUser(email.toString(), password.toString())
+            signUpViewModel.result.observe(viewLifecycleOwner){
+
+            }
         }
     }
 
     private fun handleButtonActions(){
         binding.signUpButton.setOnClickListener{
-           // signUp()
-            view?.findNavController()?.navigate(R.id.action_signUpFragment_to_homeFragment)
+            signUp()
+            //view?.findNavController()?.navigate(R.id.action_signUpFragment_to_homeFragment)
         }
         binding.loginDirection.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_signUpFragment_to_loginFragment)
