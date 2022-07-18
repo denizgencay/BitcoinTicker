@@ -5,47 +5,129 @@
     android:layout_height="match_parent"
     tools:context=".ui.coin_detail.CoinDetailFragment">
 
+
+
     <ImageView
         android:id="@+id/coin_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="150dp"
         android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/name_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_below="@id/coin_image"/>
-    <TextView
-        android:id="@+id/current_price"
-        android:layout_width="wrap_content"
+        android:layout_below="@id/coin_image"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/description_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_below="@id/description"/>
-    <TextView
-        android:id="@+id/price_change"
-        android:layout_width="wrap_content"
+        android:layout_below="@id/name_view"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/current_price_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_below="@id/current_price"/>
-    <TextView
-        android:id="@+id/hashing_algorithm"
-        android:layout_width="wrap_content"
+        android:layout_below="@id/description_view"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_price"/>
+
+        <TextView
+            android:id="@+id/current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/price_change_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_below="@id/price_change"/>
+        android:layout_below="@id/current_price_view"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_change"/>
+
+        <TextView
+            android:id="@+id/price_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/hashing_algorithm_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/price_change_view"
+        android:paddingStart="20dp"
+        android:paddingTop="25dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hashing_algorithm"/>
+
+        <TextView
+            android:id="@+id/hashing_algorithm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/favorite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hashing_algorithm"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
         android:text="@string/save_to_favorites"/>
 
 </RelativeLayout>
