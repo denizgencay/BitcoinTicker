@@ -44,6 +44,7 @@ class FirebaseRepositoryImpl @Inject constructor(
             try {
                 firebaseAuth.signInWithEmailAndPassword(email,password).await()
                 trySend(Resource.success(true))
+                close()
             }catch (e: Exception){
                 toastMessageHelper.showToastMessage(e.localizedMessage!!)
                 trySend(Resource.error(false,e.localizedMessage!!))
@@ -53,7 +54,7 @@ class FirebaseRepositoryImpl @Inject constructor(
 
 
 
-    override fun addFavorite(coinId: String, currentPrice: Double) {
+    override fun addFavorite(coinId: String) {
         firebaseFirestore.collection(USER).document(firebaseAuth.currentUser!!.uid).update(FAVORITES, FieldValue.arrayUnion(coinId))
     }
 
