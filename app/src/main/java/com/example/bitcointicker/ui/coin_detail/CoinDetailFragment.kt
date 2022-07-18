@@ -1,5 +1,6 @@
 package com.example.bitcointicker.ui.coin_detail
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,19 +39,23 @@ class CoinDetailFragment : Fragment() {
         coinDetailViewModel.getCoinDetail(id)
         binding.favoriteButton.isEnabled = false
         coinDetailViewModel.coinDetail.observe(viewLifecycleOwner){
-            binding.name.text = it.name
-            binding.description.text = it.description!!.en.toString()
-            binding.currentPrice.text = it.marketData!!.currentPrice?.usd.toString()
-            binding.priceChange.text = it.marketData!!.priceChange24h.toString()
-            binding.hashingAlgorithm.text = it.hashingAlgorithm.toString()
-            loadImage(it.image!!.large!!)
-            favoriteCoin = FavoriteCoin(it.id!!,it.marketData!!.currentPrice!!.usd!!)
-            binding.favoriteButton.isEnabled = true
-            binding.swipeToFresh.isRefreshing = false
+            bindDataWithView(it)
         }
         binding.favoriteButton.setOnClickListener{
             coinDetailViewModel.addFavorite(id, favoriteCoin)
         }
+    }
+
+    private fun bindDataWithView(it: CoinDetail){
+        binding.name.text = it.name
+        binding.description.text = it.description!!.en.toString()
+        binding.currentPrice.text = it.marketData!!.currentPrice?.usd.toString()
+        binding.priceChange.text = it.marketData!!.priceChange24h.toString()
+        binding.hashingAlgorithm.text = it.hashingAlgorithm.toString()
+        loadImage(it.image!!.large!!)
+        favoriteCoin = FavoriteCoin(it.id!!,it.marketData!!.currentPrice!!.usd!!)
+        binding.favoriteButton.isEnabled = true
+        binding.swipeToFresh.isRefreshing = false
     }
 
     private fun configureSwipeToRefresh(id: String){

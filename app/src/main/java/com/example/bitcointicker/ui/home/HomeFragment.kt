@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
 import com.example.bitcointicker.databinding.FragmentHomeBinding
 import com.example.bitcointicker.ui.adapter.ViewPagerAdapter
 import com.example.bitcointicker.ui.home.favorite.FavoriteFragment
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val fragment: FavoriteFragment = FavoriteFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
