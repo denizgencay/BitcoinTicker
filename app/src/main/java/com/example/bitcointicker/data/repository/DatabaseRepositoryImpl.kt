@@ -22,4 +22,7 @@ class DatabaseRepositoryImpl @Inject constructor(
 
     override fun searchCoin(query: String): LiveData<List<Coin>> = coinDao.searchCoins(query)
 
+    override fun sortCoins(query: String): LiveData<Coin> = coinDao.sortToFavorite(query)
+
+
 }

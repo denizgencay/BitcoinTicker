@@ -9,6 +9,6 @@ interface FirebaseRepository {
     suspend fun loginUser(email:String, password: String): Flow<Resource<Boolean>>
     fun addFavorite(coinId: String)
     fun removeFavorite(coinId: String)
-    fun getFavoriteCoinIds(): Flow<List<String>>
+    suspend fun getFavoriteCoinIds(): Flow<Resource<List<String>>>
 
 }
