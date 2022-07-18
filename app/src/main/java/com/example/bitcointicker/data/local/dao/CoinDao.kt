@@ -17,7 +17,4 @@ interface CoinDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAllCoins(coins: List<Coin>)
-
-    @Query("SELECT * FROM ALL_COINS_TABLE WHERE name= :sortQuery")
-    fun sortToFavorite(sortQuery: String): LiveData<Coin>
 }
