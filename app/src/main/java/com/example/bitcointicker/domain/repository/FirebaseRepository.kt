@@ -1,11 +1,12 @@
 package com.example.bitcointicker.domain.repository
 
+import com.example.bitcointicker.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface FirebaseRepository {
 
-    fun signUp(email: String, password: String)
-    fun login(email:String, password: String)
+    suspend fun signUp(email: String, password: String): Flow<Resource<Boolean>>
+    suspend fun loginUser(email:String, password: String): Flow<Resource<Boolean>>
     fun addFavorite(coinId: String)
     fun removeFavorite(coinId: String)
     fun getFavoriteCoinIds(): Flow<List<String>>

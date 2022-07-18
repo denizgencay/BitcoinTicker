@@ -10,6 +10,6 @@ class SignUpViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ): ViewModel() {
     fun signUpUser(email: String, password: String){
-        firebaseRepository.signUp(email,password)
+       // firebaseRepository.signUp(email,password)
     }
 }

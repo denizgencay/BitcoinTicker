@@ -7,14 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitcointicker.R
 import com.example.bitcointicker.databinding.FragmentAllCoinsFragementBinding
-import com.example.bitcointicker.domain.model.Coin
 import com.example.bitcointicker.ui.adapter.CoinListRecyclerAdapter
 import com.example.bitcointicker.ui.adapter.CoinListRecyclerAdapter.OnCardListener
 import dagger.hilt.android.AndroidEntryPoint

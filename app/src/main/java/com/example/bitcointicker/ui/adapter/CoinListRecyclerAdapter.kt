@@ -20,15 +20,13 @@ class CoinListRecyclerAdapter: RecyclerView.Adapter<CoinListRecyclerAdapter.Coin
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         holder.nameText.text = coins[position]?.name.toString()
-        //holder.symbolText.text = coins[position]?.symbol.toString()
     }
     override fun getItemCount(): Int {
         return coins.size
     }
 
     class CoinViewHolder(view: View, listener: OnCardListener): RecyclerView.ViewHolder(view) {
-         val nameText: TextView = itemView.findViewById(R.id.coin_name)
-         //val symbolText: TextView = itemView.findViewById(R.id.coin_symbol)
+        val nameText: TextView = itemView.findViewById(R.id.coin_name)
         init {
             itemView.setOnClickListener {
                 listener.onCardClicked(position = adapterPosition)
