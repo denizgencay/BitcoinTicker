@@ -9,5 +9,4 @@ interface DatabaseRepository {
     suspend fun addAllCoins(coinList: List<Coin>)
     fun getAllCoins(): LiveData<List<Coin>>
     fun searchCoin(query: String): LiveData<List<Coin>>
-    fun sortCoins(query: String): LiveData<Coin>
 }
