@@ -2,7 +2,6 @@ package com.example.bitcointicker.util
 
 import android.app.Service
 import android.content.Intent
-import android.os.Handler
 import android.os.IBinder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +16,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackgroundService : Service() {
+class BackgroundService: Service() {
 
     @Inject
     lateinit var remoteDataRepository: RemoteDataRepository
@@ -36,13 +35,11 @@ class BackgroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         CoroutineScope(IO).launch {
             while (true){
                 getFavoriteCoins()
                 delay(3600000)
             }
-
         }
         return START_STICKY
     }

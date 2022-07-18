@@ -30,6 +30,7 @@ class CoinDetailFragment : Fragment() {
     ): View {
         binding = FragmentCoinDetailBinding.inflate(inflater,container,false)
         initViewModel(args.coinId)
+        configureSwipeToRefresh(args.coinId)
         return binding.root
     }
 
@@ -45,11 +46,17 @@ class CoinDetailFragment : Fragment() {
             loadImage(it.image!!.large!!)
             favoriteCoin = FavoriteCoin(it.id!!,it.marketData!!.currentPrice!!.usd!!)
             binding.favoriteButton.isEnabled = true
+            binding.swipeToFresh.isRefreshing = false
         }
         binding.favoriteButton.setOnClickListener{
             coinDetailViewModel.addFavorite(id, favoriteCoin)
         }
+    }
 
+    private fun configureSwipeToRefresh(id: String){
+        binding.swipeToFresh.setOnRefreshListener{
+            initViewModel(id)
+        }
     }
 
 
