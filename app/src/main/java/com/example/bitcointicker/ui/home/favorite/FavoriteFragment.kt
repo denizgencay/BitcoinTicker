@@ -28,6 +28,11 @@ class FavoriteFragment : Fragment() {
     ): View {
         binding = FragmentFavoriteBinding.inflate(inflater,container,false)
         configureRecyclerView()
+        observeData()
+        return binding.root
+    }
+
+    private fun observeData(){
         favoriteViewModel.getFavoriteCoins()
         favoriteViewModel.getAllCoinsFromDb.observe(viewLifecycleOwner){ coinList ->
             favoriteViewModel.coin.observe(viewLifecycleOwner){ favoriteList ->
@@ -36,7 +41,6 @@ class FavoriteFragment : Fragment() {
                 recyclerAdapter.notifyDataSetChanged()
             }
         }
-        return binding.root
     }
 
     private fun configureRecyclerView(){

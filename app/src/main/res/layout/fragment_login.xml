@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:layout_below="@id/email"/>
 
     <TextView

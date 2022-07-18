@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bitcointicker.domain.model.CoinDetail
+import com.example.bitcointicker.domain.model.FavoriteCoin
+import com.example.bitcointicker.domain.repository.DatabaseRepository
 import com.example.bitcointicker.domain.repository.FirebaseRepository
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,9 +17,11 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
     private val remoteDataRepository: RemoteDataRepository,
-    private val firebaseRepository: FirebaseRepository
+    private val firebaseRepository: FirebaseRepository,
+    private val databaseRepository: DatabaseRepository
 ): ViewModel() {
     private var _coinDetailJob: Job? = null
+    private var _addFavoriteCoinJob: Job? = null
     private var _coinDetail = MutableLiveData<CoinDetail>()
     val coinDetail: LiveData<CoinDetail> = _coinDetail
 
@@ -30,12 +34,45 @@ class CoinDetailViewModel @Inject constructor(
         }
     }
 
-    fun addFavorite(coinId: String){
-        firebaseRepository.addFavorite(coinId)
+    fun addFavorite(coinId: String, coin: FavoriteCoin){
+        firebaseRepository.addFavorite(coinId,0.0)
+        addFavoriteToDb(coin)
     }
 
-    fun removeFavorite(coinId: String){
-        firebaseRepository.removeFavorite(coinId)
+    private fun addFavoriteToDb(coin: FavoriteCoin){
+        _addFavoriteCoinJob?.cancel()
+        _addFavoriteCoinJob = viewModelScope.launch {
+            databaseRepository.addFavoriteCoin(coin)
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

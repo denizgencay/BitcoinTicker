@@ -25,19 +25,15 @@ class FirebaseRepositoryImpl @Inject constructor(
     override suspend fun signUp(email: String, password: String): Flow<Resource<Boolean>> =
        callbackFlow {
            try {
-               val signUp = firebaseAuth.createUserWithEmailAndPassword(email,password)
-               if (signUp.isSuccessful){
-                   val map: HashMap<String, List<String>> = hashMapOf()
-                   map["favorites"] = listOf()
-                   firebaseFirestore.collection("user").document(firebaseAuth.currentUser!!.uid).set(map)
-                   trySend(Resource.success(true))
-                   close()
-               }else{
-                   toastMessageHelper.showToastMessage(signUp.exception!!.localizedMessage!!)
-                   trySend(Resource.error(false,signUp.exception!!.localizedMessage!!))
-                   close()
-               }
+               firebaseAuth.createUserWithEmailAndPassword(email,password).await()
+               val map: HashMap<String, Any> = hashMapOf()
+               map["coinId"] = ""
+               firebaseFirestore.collection("user").document(firebaseAuth.currentUser!!.uid).set(map).await()
+               trySend(Resource.success(true))
+               close()
            }catch (e: Exception){
+               toastMessageHelper.showToastMessage(e.message)
+               trySend(Resource.error(false,e.message!!))
                close()
            }
        }.flowOn(dispatcherProvider.mainImmediate)
@@ -46,31 +42,21 @@ class FirebaseRepositoryImpl @Inject constructor(
     override suspend fun loginUser(email: String, password: String): Flow<Resource<Boolean>> =
         callbackFlow {
             try {
-                val login = firebaseAuth.signInWithEmailAndPassword(email,password)
-                if (login.isSuccessful){
-                    trySend(Resource.success(true))
-                }else{
-                    toastMessageHelper.showToastMessage(login.exception!!.localizedMessage!!)
-                    trySend(Resource.error(false,login.exception!!.localizedMessage!!))
-                }
-                close()
+                firebaseAuth.signInWithEmailAndPassword(email,password).await()
+                trySend(Resource.success(true))
             }catch (e: Exception){
+                toastMessageHelper.showToastMessage(e.message!!)
+                trySend(Resource.error(false,e.message!!))
                 close()
             }
         }.flowOn(dispatcherProvider.mainImmediate)
 
 
 
-    override fun addFavorite(coinId: String) {
+    override fun addFavorite(coinId: String, currentPrice: Double) {
         firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").update(FAVORITES, FieldValue.arrayUnion(coinId)).addOnSuccessListener {
             println(it)
         }.addOnFailureListener{
-            toastMessageHelper.showToastMessage(it.localizedMessage)
-        }
-    }
-
-    override fun removeFavorite(coinId: String) {
-        firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").update(FAVORITES, FieldValue.arrayRemove(coinId)).addOnFailureListener{
             toastMessageHelper.showToastMessage(it.localizedMessage)
         }
     }
