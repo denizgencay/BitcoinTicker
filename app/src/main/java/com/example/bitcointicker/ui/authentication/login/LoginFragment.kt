@@ -33,6 +33,9 @@ class LoginFragment : Fragment() {
             Toast.makeText(activity, "Please fill all the blanks", Toast.LENGTH_SHORT).show()
         }else{
             loginViewModel.loginUser(email.toString(),password.toString())
+            loginViewModel.result.observe(viewLifecycleOwner){
+                //
+            }
         }
     }
 
@@ -41,7 +44,7 @@ class LoginFragment : Fragment() {
             login()
         }
         binding.signUpDirection.setOnClickListener {
-            view?.findNavController()?.popBackStack()
+            view?.findNavController()?.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 }

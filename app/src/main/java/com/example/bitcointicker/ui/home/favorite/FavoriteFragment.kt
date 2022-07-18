@@ -1,5 +1,6 @@
 package com.example.bitcointicker.ui.home.favorite
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,15 +29,22 @@ class FavoriteFragment : Fragment() {
     ): View {
         binding = FragmentFavoriteBinding.inflate(inflater,container,false)
         configureRecyclerView()
+        observeData()
+        configureSwipeToRefresh()
+        return binding.root
+    }
+
+
+    private fun observeData(){
         favoriteViewModel.getFavoriteCoins()
         favoriteViewModel.getAllCoinsFromDb.observe(viewLifecycleOwner){ coinList ->
             favoriteViewModel.coin.observe(viewLifecycleOwner){ favoriteList ->
                 sortFavoriteList(coinList, favoriteList)
                 recyclerAdapter.setCoinListData(listForReturn)
                 recyclerAdapter.notifyDataSetChanged()
+                binding.swipeToRefresh.isRefreshing = false
             }
         }
-        return binding.root
     }
 
     private fun configureRecyclerView(){
@@ -48,6 +56,12 @@ class FavoriteFragment : Fragment() {
                 view?.findNavController()?.navigate(action)
             }
         })
+    }
+
+    private fun configureSwipeToRefresh(){
+        binding.swipeToRefresh.setOnRefreshListener{
+            observeData()
+        }
     }
 
     private fun sortFavoriteList(coinList: List<Coin>, favoriteList: List<String>){
