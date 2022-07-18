@@ -33,7 +33,8 @@ class CoinDetailFragment : Fragment() {
     private fun initViewModel(id: String){
         coinDetailViewModel.getCoinDetail(id)
         coinDetailViewModel.coinDetail.observe(viewLifecycleOwner){
-            binding.description.text = it.name
+            binding.name.text = it.name
+            binding.description.text = it.description.toString()
             binding.currentPrice.text = it.marketData!!.currentPrice?.usd.toString()
             binding.priceChange.text = it.marketData!!.priceChange24h.toString()
             binding.hashingAlgorithm.text = it.hashingAlgorithm.toString()

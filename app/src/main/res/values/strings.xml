@@ -9,4 +9,9 @@
     <string name="if_you_don_t_have_an_account_sign_up">If you don\'t have an account Sign Up</string>
     <string name="sign_up">sign up</string>
     <string name="save_to_favorites">Save To Favorites</string>
+    <string name="price_change">Price Change:</string>
+    <string name="current_price">Current Price:</string>
+    <string name="description">Description:</string>
+    <string name="hashing_algorithm">Hashing Algorithm:</string>
+    <string name="name">Name:</string>
 </resources>
