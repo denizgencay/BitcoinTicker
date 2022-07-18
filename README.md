@@ -21,7 +21,7 @@ BitcoinTicker helps users to find all crypto currencies in the market and learn 
 - Clean Architecture
 - Animations
 
-##Usage
+## Usage
 - Users should swipte to load their favorite coins after first launch for PoC
 - Users can not stay logged in for PoC.
 - Users can logout with closing app for PoC.
