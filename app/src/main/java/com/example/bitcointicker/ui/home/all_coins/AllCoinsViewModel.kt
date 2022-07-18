@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bitcointicker.domain.model.Coin
 import com.example.bitcointicker.domain.repository.DatabaseRepository
 import com.example.bitcointicker.domain.repository.RemoteDataRepository
+import com.example.bitcointicker.util.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -20,8 +21,12 @@ class AllCoinsViewModel @Inject constructor(
 ): ViewModel() {
     private var _getAllCoinsJob: Job? = null
     private var _addAllCoinsJob: Job? = null
-    private var _coins = MutableLiveData<List<Coin>>()
-    var coins: LiveData<List<Coin>>  = _coins
+
+    val getAllCoinsFromDb: LiveData<List<Coin>> = databaseRepository.getAllCoins()
+
+    fun searchDatabase(query: String): LiveData<List<Coin>>{
+        return databaseRepository.searchCoin(query)
+    }
 
     fun getAllCoins(){
         _getAllCoinsJob?.cancel()
@@ -35,8 +40,35 @@ class AllCoinsViewModel @Inject constructor(
         _addAllCoinsJob?.cancel()
         _addAllCoinsJob = viewModelScope.launch{
             databaseRepository.addAllCoins(coinList)
-            _coins.value = coinList
         }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
