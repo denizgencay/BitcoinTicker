@@ -35,9 +35,6 @@ class SignUpFragment : Fragment() {
             Toast.makeText(activity, "Please fill all the blanks", Toast.LENGTH_SHORT).show()
         }else{
             signUpViewModel.signUpUser(email.toString(), password.toString())
-            signUpViewModel.result.observe(viewLifecycleOwner){
-
-            }
         }
     }
 
