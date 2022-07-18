@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class FirebaseRepositoryImpl @Inject constructor(
@@ -71,17 +72,40 @@ class FirebaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getFavoriteCoinIds(): Flow<List<String>> =
-        callbackFlow {
-            try {
-                firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").addSnapshotListener{ data, _ ->
-                    trySend(data?.get("favorites") as List<String>)
-                    close()
-                }
-            }catch (e: Exception){
-                toastMessageHelper.showToastMessage(e.localizedMessage)
-                close()
+    override suspend fun getFavoriteCoinIds(): Flow<Resource<List<String>>> =
+        callbackFlow <Resource<List<String>>> {
+            val response = firebaseFirestore.collection(USER).document("firebaseAuth.uid!!").get().await()
+            if (response.exists()){
+                trySend(Resource.success(response.data!!["favorites"] as List<String>))
+            }else{
+                trySend(Resource.error(listOf(),"Unexpected Error"))
             }
-        }
+            close()
+        }.flowOn(dispatcherProvider.io)
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -26,7 +26,6 @@ class CoinDetailViewModel @Inject constructor(
         _coinDetailJob = viewModelScope.launch {
             remoteDataRepository.getCoinDetail(id).collect{
                 _coinDetail.value = it
-                println(it)
             }
         }
     }
