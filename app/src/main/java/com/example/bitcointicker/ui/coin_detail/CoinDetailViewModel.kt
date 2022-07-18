@@ -21,10 +21,10 @@ class CoinDetailViewModel @Inject constructor(
     private var _coinDetail = MutableLiveData<CoinDetail>()
     val coinDetail: LiveData<CoinDetail> = _coinDetail
 
-    fun getCoinDetail(){
+    fun getCoinDetail(id: String){
         _coinDetailJob?.cancel()
         _coinDetailJob = viewModelScope.launch {
-            remoteDataRepository.getCoinDetail("starbase").collect{
+            remoteDataRepository.getCoinDetail(id).collect{
                 _coinDetail.value = it
                 println(it)
             }
