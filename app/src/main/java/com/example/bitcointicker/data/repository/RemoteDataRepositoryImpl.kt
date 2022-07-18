@@ -32,10 +32,8 @@ class RemoteDataRepositoryImpl @Inject constructor(
             try {
                 val response = coinGeckoApi.getSelectedCoin(id)
                 trySend(response)
-                println(response)
                 close()
             }catch (e: Exception){
-                println(e.localizedMessage)
                 close()
             }
         }.flowOn(dispatcherProvider.io)

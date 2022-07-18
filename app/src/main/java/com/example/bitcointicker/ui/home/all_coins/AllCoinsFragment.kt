@@ -12,8 +12,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitcointicker.R
 import com.example.bitcointicker.databinding.FragmentAllCoinsFragementBinding
+import com.example.bitcointicker.domain.model.Coin
 import com.example.bitcointicker.ui.adapter.CoinListRecyclerAdapter
 import com.example.bitcointicker.ui.adapter.CoinListRecyclerAdapter.OnCardListener
+import com.example.bitcointicker.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +24,7 @@ class AllCoinsFragment : Fragment() {
     private lateinit var binding: FragmentAllCoinsFragementBinding
     private val allCoinsViewModel: AllCoinsViewModel by viewModels()
     private val recyclerAdapter = CoinListRecyclerAdapter()
+    private var coinList = listOf<Coin>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +42,8 @@ class AllCoinsFragment : Fragment() {
         binding.allCoinsRecyclerView.adapter = recyclerAdapter
         recyclerAdapter.setOnCardClickedListener(object : OnCardListener {
             override fun onCardClicked(position: Int) {
-                view?.findNavController()?.navigate(R.id.action_homeFragment_to_coinDetailFragment)
+                val action = HomeFragmentDirections.actionHomeFragmentToCoinDetailFragment(coinList[position].id.trim())
+                view?.findNavController()?.navigate(action)
             }
         })
     }
@@ -48,6 +52,7 @@ class AllCoinsFragment : Fragment() {
         allCoinsViewModel.getAllCoins()
         allCoinsViewModel.getAllCoinsFromDb.observe(viewLifecycleOwner){
             recyclerAdapter.setCoinListData(it)
+            coinList = it
             recyclerAdapter.notifyDataSetChanged()
         }
     }
@@ -66,8 +71,8 @@ class AllCoinsFragment : Fragment() {
         val searchQuery = "%$query%"
         allCoinsViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { list ->
             list.let {
-                println("searched coin $it")
                 recyclerAdapter.setCoinListData(it)
+                coinList = it
                 recyclerAdapter.notifyDataSetChanged()
             }
         }

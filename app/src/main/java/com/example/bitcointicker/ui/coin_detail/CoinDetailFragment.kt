@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.example.bitcointicker.databinding.FragmentCoinDetailBinding
 import com.example.bitcointicker.domain.model.CoinDetail
 import com.squareup.picasso.Picasso
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CoinDetailFragment : Fragment() {
 
+    private val args: CoinDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentCoinDetailBinding
     private val coinDetailViewModel: CoinDetailViewModel by viewModels()
 
@@ -24,15 +26,29 @@ class CoinDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCoinDetailBinding.inflate(inflater,container,false)
-        coinDetailViewModel.getCoinDetail()
-        val dataObserver = Observer<CoinDetail>{
-            binding.description.text = it.name
-        }
-        coinDetailViewModel.coinDetail.observe(viewLifecycleOwner,dataObserver)
-        binding.favoriteButton.setOnClickListener{
-            coinDetailViewModel.addFavorite("starbase")
-        }
-        Picasso.get().load("https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579").into(binding.coinImage);
+        initViewModel(args.coinId)
         return binding.root
+    }
+
+    private fun initViewModel(id: String){
+        coinDetailViewModel.getCoinDetail(id)
+        coinDetailViewModel.coinDetail.observe(viewLifecycleOwner){
+            binding.description.text = it.name
+            binding.currentPrice.text = it.marketData!!.currentPrice?.usd.toString()
+            binding.priceChange.text = it.marketData!!.priceChange24h.toString()
+            binding.hashingAlgorithm.text = it.hashingAlgorithm.toString()
+            loadImage(it.image!!.large!!)
+        }
+        binding.favoriteButton.setOnClickListener{
+            coinDetailViewModel.addFavorite(id)
+        }
+
+    }
+
+    private fun loadImage(url: String){
+        Picasso
+            .get()
+            .load(url)
+            .into(binding.coinImage);
     }
 }
