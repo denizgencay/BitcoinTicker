@@ -39,6 +39,7 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.getFavoriteCoins()
         favoriteViewModel.getAllCoinsFromDb.observe(viewLifecycleOwner){ coinList ->
             favoriteViewModel.coin.observe(viewLifecycleOwner){ favoriteList ->
+                listForReturn.clear()
                 sortFavoriteList(coinList, favoriteList)
                 recyclerAdapter.setCoinListData(listForReturn)
                 recyclerAdapter.notifyDataSetChanged()

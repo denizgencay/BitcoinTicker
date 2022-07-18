@@ -35,7 +35,7 @@ class CoinDetailViewModel @Inject constructor(
     }
 
     fun addFavorite(coinId: String, coin: FavoriteCoin){
-        firebaseRepository.addFavorite(coinId,0.0)
+        firebaseRepository.addFavorite(coinId)
         addFavoriteToDb(coin)
     }
 

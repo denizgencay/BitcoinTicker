@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.bitcointicker.databinding.FragmentHomeBinding
 import com.example.bitcointicker.ui.adapter.ViewPagerAdapter
