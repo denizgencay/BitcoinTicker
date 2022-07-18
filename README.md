@@ -1,7 +1,7 @@
 Bitcoin Ticker- Android App
 
 ## About
-BitcoinTicker helps users to find all crypto currencies in the market and learn about there detailed information.
+BitcoinTicker helps users to find all crypto currencies in the market and learn about their detailed information.
 
 ## Tech
 
@@ -22,7 +22,7 @@ BitcoinTicker helps users to find all crypto currencies in the market and learn 
 - Animations
 
 ## Usage
-- Users should swipte to load their favorite coins after first launch for PoC
+- Users should swipte to load their favorite coins after first launch for PoC.
 - Users can not stay logged in for PoC.
 - Users can logout with closing app for PoC.
 - Users can refresh the detail page with swiping screen.
